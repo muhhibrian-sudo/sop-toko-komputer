@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d223e">
+  <meta name="description" content="Perpustakaan dokumen SOP Toko Komputer, Aksesori dan Servis — baca, cari, cetak, dan siapkan revisi SOP.">
+  <title>SOP Toko Komputer, Aksesori & Servis</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="data/sop.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-btn mobile-only" id="menuButton" aria-label="Buka daftar isi">☰</button>
+      <a class="brand" href="#sampul" aria-label="Kembali ke awal">
+        <span class="brand-mark">S</span>
+        <span class="brand-copy"><b>SOP<span class="muted-brand">PEDIA</span></b><small>Dokumen Operasional Toko</small></span>
+      </a>
+      <div class="search-wrap"><span class="search-icon">⌕</span><input type="search" id="searchInput" autocomplete="off" placeholder="Cari SOP, langkah kerja, atau kata kunci…" aria-label="Cari isi SOP"><kbd class="search-hint">Cari</kbd></div>
+      <div class="header-actions">
+        <button class="btn btn-ghost desktop-only" id="printButton">⎙ <span>Cetak / PDF</span></button>
+        <button class="btn btn-primary" id="editToggle">✎ <span>Mode Edit</span></button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <div class="sidebar-backdrop" id="sideBackdrop" hidden></div>
+      <aside class="sidebar" id="sidebar" aria-label="Navigasi dokumen">
+        <div class="side-top">
+          <div class="eyebrow">PUSTAKA DOKUMEN</div>
+          <div class="side-label">Daftar Isi SOP</div>
+          <div class="side-description">Akses setiap prosedur dan lampiran secara cepat.</div>
+        </div>
+        <nav id="navigation" class="section-nav"></nav>
+        <div class="side-footer">
+          <span class="small-pill">● Versi Dokumen 1.0</span>
+          <a class="source-link" href="referensi/SOP_Toko_Komputer_Aksesoris_dan_Servis_v2.docx" download>↓ Unduh Word asli</a>
+        </div>
+      </aside>
+
+      <main class="workspace" id="workspace">
+        <section class="hero" id="hero">
+          <div class="hero-pattern"></div>
+          <div class="hero-content">
+            <div class="hero-kicker">PANDUAN OPERASIONAL TERSTRUKTUR</div>
+            <h1>SOP Toko Komputer,<br><em>Aksesori & Servis</em></h1>
+            <p>Semua standar kerja toko dalam satu tempat. Mudah dibaca, ditelusuri, dicetak, dan diperbarui.</p>
+            <div class="hero-actions"><button class="btn btn-white" id="startButton">Mulai Membaca ↗</button><a href="referensi/SOP_Toko_Komputer_Aksesoris_dan_Servis_v2.docx" download class="btn btn-outlined">↓ File Word Asli</a></div>
+          </div>
+          <div class="hero-circle hero-circle-one"></div><div class="hero-circle hero-circle-two"></div>
+        </section>
+
+        <div class="summary-cards" id="summaryCards">
+          <div class="metric"><span class="metric-icon">▤</span><span><strong id="totalSop">18</strong><small>Prosedur SOP</small></span></div>
+          <div class="metric"><span class="metric-icon green">▦</span><span><strong id="totalForms">5</strong><small>Lampiran Formulir</small></span></div>
+          <div class="metric"><span class="metric-icon violet">◷</span><span><strong>1.0</strong><small>Versi Dokumen</small></span></div>
+        </div>
+
+        <section class="edit-banner" id="editBanner" hidden>
+          <span class="edit-banner-icon">✎</span>
+          <div><strong>Mode edit lokal aktif</strong><p>Perubahan tersimpan hanya di browser ini. Untuk memperbarui website bagi semua pengunjung, unduh hasil edit lalu perbarui <code>data/sop.js</code> di GitHub.</p></div>
+          <button class="btn btn-soft" id="howPublish">Cara Terbitkan</button>
+        </section>
+
+        <div class="page-heading">
+          <div><div class="eyebrow eyebrow-dark" id="breadcrumb">DOKUMEN · SOP</div><h2 id="currentTitle">Pilih bagian SOP</h2><p class="heading-summary" id="currentSummary">Pilih salah satu bagian dari daftar isi untuk mulai membaca.</p></div>
+          <div class="page-tools" id="pageTools"><span class="doc-status">✓ Dokumen tersedia</span></div>
+        </div>
+        <div class="editor-toolbar" id="editorToolbar" hidden>
+          <button class="btn btn-soft" id="renameSection">✎ Judul bagian</button>
+          <button class="btn btn-soft" id="addHeading">+ Subjudul</button>
+          <button class="btn btn-soft" id="addParagraph">+ Teks</button>
+          <button class="btn btn-soft" id="addList">+ Poin</button>
+          <button class="btn btn-soft" id="addTable">+ Tabel</button>
+          <button class="btn btn-soft" id="addSection">+ SOP baru</button>
+          <button class="btn btn-soft danger-outline" id="removeSection">Hapus bagian</button>
+        </div>
+        <section class="paper" id="documentArea" aria-live="polite"></section>
+        <div class="foot-actions"><button class="btn btn-outline" id="backTop">↑ Kembali ke atas</button><span>Referensi: SOP Toko Komputer, Aksesori dan Servis · Dokumen internal versi 1.0</span></div>
+      </main>
+    </div>
+  </div>
+
+  <div class="editor-dock" id="editorDock" hidden>
+    <div><strong>✎ Editor SOP</strong><small id="draftStatus">Perubahan lokal</small></div>
+    <div class="dock-actions">
+      <button class="btn btn-ghost-light" id="importButton">↑ Impor revisi</button>
+      <button class="btn btn-ghost-light" id="resetButton">↺ Reset draft</button>
+      <button class="btn btn-white" id="exportButton">↓ Unduh hasil edit</button>
+    </div>
+  </div>
+  <input type="file" accept=".js,.json,application/json,text/javascript" id="importFile" hidden>
+  <dialog id="publishDialog" class="dialog"><div class="dialog-head"><strong>Cara menerbitkan perubahan ke GitHub</strong><button class="icon-btn" data-close-dialog aria-label="Tutup">✕</button></div><p>GitHub Pages tidak menyediakan penyimpanan langsung dari browser. Supaya perubahan terbaca oleh semua pengunjung:</p><ol><li>Pastikan revisi sudah disimpan pada editor.</li><li>Klik <b>Unduh hasil edit</b> untuk mengambil file <code>sop.js</code>.</li><li>Buka repository website di GitHub, lalu ganti file <code>data/sop.js</code> dengan file baru.</li><li>Simpan perubahan dengan <b>Commit changes</b>. GitHub Pages akan menerbitkan versi terbaru.</li></ol><div class="info-note">Edit yang belum diterbitkan hanya tersimpan di perangkat/browser Anda. Jangan gunakan komputer umum untuk menyimpan draf rahasia.</div><div class="dialog-actions"><button class="btn btn-primary" data-close-dialog>Mengerti</button></div></dialog>
+  <div role="status" class="toast" id="toast" hidden></div>
+</body>
+</html>

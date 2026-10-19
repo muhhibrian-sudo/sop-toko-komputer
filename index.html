@@ -6,9 +6,11 @@
   <meta name="theme-color" content="#f7f6f1">
   <meta name="description" content="Koleksi SOP Toko Komputer, Aksesori dan Servis. Baca per judul, geser untuk berpindah.">
   <title>Panduan SOP Toko Komputer</title>
-  <link rel="stylesheet" href="assets/baca-v5.css?v=20261019v5">
+  <link rel="stylesheet" href="assets/baca-v6.css?v=20261019v6">
   <script src="data/sop.js" defer></script>
-  <script src="assets/baca-v5.js?v=20261019v5" defer></script>
+  <script src="assets/baca-v6.js?v=20261019v6" defer></script>
+  <script src="config.js?v=20261019v6" defer></script>
+  <script src="assets/admin-v6.js?v=20261019v6" defer></script>
 </head>
 <body>
 <div class="reading-progress" aria-hidden="true"><div id="globalProgress"></div></div>
@@ -34,7 +36,7 @@
   </section>
   <section class="library wrap" id="librarySection" aria-label="Daftar SOP">
     <div class="section-kicker">— RAK BACA PILIHAN ANDA</div>
-    <div class="library-heading"><div><h2>Temukan <em>bacaanmu.</em></h2><p>Gunakan kategori seperti Panduan Dasar untuk memilih judul SOP.</p></div><div class="home-tools"><button type="button" class="side-tool" id="homeSearch">⌕ Cari SOP</button><a class="side-tool admin-tool" href="https://github.com/muhhibrian-sudo/sop-toko-komputer/edit/main/data/sop.js" target="_blank" rel="noopener noreferrer" title="Hanya akun GitHub yang diberi akses yang dapat menerbitkan revisi">⚙ Kelola SOP (Admin)</a></div></div>
+    <div class="library-heading"><div><h2>Temukan <em>bacaanmu.</em></h2><p>Gunakan kategori seperti Panduan Dasar untuk memilih judul SOP.</p></div><div class="home-tools"><button type="button" class="side-tool" id="homeSearch">⌕ Cari SOP</button><button type="button" class="side-tool admin-tool admin-open">♙ Login Admin</button></div></div>
     <div id="categoryPills" class="category-pills" role="tablist" aria-label="Pilih kategori"></div>
     <div id="libraryCount" class="library-count" aria-live="polite"></div>
     <div class="books-grid" id="booksGrid"></div>
@@ -48,13 +50,15 @@
     <aside class="chapter-rail" aria-label="Daftar judul">
       <div class="rail-label">DAFTAR SOP</div>
       <button type="button" class="rail-home" id="railHome">← Kembali ke rak</button>
-      <div class="rail-tools"><button type="button" class="side-tool" id="railSearch">⌕ Cari SOP</button><a class="side-tool admin-tool" href="https://github.com/muhhibrian-sudo/sop-toko-komputer/edit/main/data/sop.js" target="_blank" rel="noopener noreferrer" title="Hanya akun GitHub yang diberi akses yang dapat menerbitkan revisi">⚙ Kelola SOP (Admin)</a></div>
+      <div class="rail-tools"><button type="button" class="side-tool" id="railSearch">⌕ Cari SOP</button><button type="button" class="side-tool admin-tool admin-open">♙ Login Admin</button></div>
       <div class="rail-heading">Daftar bacaan <span id="railTotal"></span></div>
       <nav id="chapterRail" class="rail-list" aria-label="Navigasi seluruh judul"></nav>
       <div class="rail-tip">↔ Geser ke samping untuk pindah judul<br>↕ Gulir untuk terus membaca judul ini</div>
     </aside>
     <main class="reader-main" id="readerMain" tabindex="-1">
       
+      <nav class="reader-category-strip" id="readerCategoryPills" aria-label="Pilih kategori SOP"></nav>
+      <nav class="reader-chapter-strip" id="readerChapterTabs" aria-label="Pilih judul pada kategori"></nav>
       <div class="reader-topline"><div class="reader-controls"><button type="button" class="light-action" id="saveBookmark" title="Tandai bacaan">♡ <span>Simpan</span></button><button type="button" class="light-action" id="openChapters" title="Buka daftar judul">☷ <span>Daftar</span></button></div></div>
       <article class="story-paper" id="storyPaper" aria-live="polite">
         <div class="paper-head"><div class="paper-overline"><span id="chapterLabel">BAB 01</span><span id="chapterLength">BACAAN SOP</span></div><h1 id="paperTitle"></h1><p class="paper-subtitle">Panduan operasional dan prosedur kerja</p><div class="chapter-divider"><span>✦</span></div></div>
@@ -74,8 +78,29 @@
 </div>
 
 <div id="overlay" class="overlay" hidden></div>
-<aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Daftar SOP" hidden><div class="drawer-top"><div><small>DAFTAR BACAAN</small><h2>Pilih judul SOP</h2></div><button id="drawerClose" class="close-button" aria-label="Tutup daftar">×</button></div><div class="drawer-tools"><button type="button" class="side-tool" id="drawerSearch">⌕ Cari SOP</button><a class="side-tool admin-tool" href="https://github.com/muhhibrian-sudo/sop-toko-komputer/edit/main/data/sop.js" target="_blank" rel="noopener noreferrer">⚙ Kelola SOP (Admin)</a></div><div class="drawer-body" id="drawerList"></div></aside>
+<aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Daftar SOP" hidden><div class="drawer-top"><div><small>DAFTAR BACAAN</small><h2>Pilih judul SOP</h2></div><button id="drawerClose" class="close-button" aria-label="Tutup daftar">×</button></div><div class="drawer-tools"><button type="button" class="side-tool" id="drawerSearch">⌕ Cari SOP</button><button type="button" class="side-tool admin-tool admin-open">♙ Login Admin</button></div><div class="drawer-body" id="drawerList"></div></aside>
 <aside id="searchPanel" class="search-panel" role="dialog" aria-modal="true" aria-label="Cari SOP" hidden><div class="search-panel-top"><h2>Cari di pustaka</h2><button id="closeSearch" class="close-button" aria-label="Tutup pencarian">×</button></div><label for="globalSearch" class="search-input"><span>⌕</span><input type="search" id="globalSearch" placeholder="Judul, kata kunci, isi SOP…" autocomplete="off"></label><div id="searchResults" class="search-results"></div></aside>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div class="admin-backdrop" id="adminBackdrop" hidden></div>
+<section class="admin-dialog" id="adminDialog" hidden role="dialog" aria-modal="true" aria-labelledby="adminDialogTitle">
+  <header class="admin-header"><div><small>AKSES KHUSUS PENGELOLA</small><h2 id="adminDialogTitle">Administrasi SOP</h2></div><button type="button" id="adminClose" aria-label="Tutup" class="admin-x">×</button></header>
+  <div id="adminNotice" class="admin-notice" role="status" aria-live="polite"></div>
+  <div id="adminLogin" class="admin-login">
+    <p>Masuk menggunakan email dan kata sandi akun admin. Pengunjung hanya dapat membaca SOP.</p>
+    <form id="adminLoginForm"><label>Email admin<input id="adminEmail" type="email" autocomplete="username" required placeholder="nama@email.com"></label><label>Kata sandi<input id="adminPassword" type="password" autocomplete="current-password" required></label><button class="admin-primary" type="submit" id="adminLoginSubmit">Masuk sebagai admin</button></form>
+    <p class="admin-help">Login hanya aktif setelah Supabase dihubungkan dan akun ditetapkan sebagai admin.</p>
+  </div>
+  <div id="adminEditor" class="admin-editor" hidden>
+    <div class="admin-toolbar"><span id="adminIdentity"></span><button type="button" id="adminLogout">Keluar</button></div>
+    <div class="admin-edit-line"><label>Judul SOP<select id="adminSections"></select></label><button type="button" id="adminNewSection" class="admin-subtle">+ Tambah SOP</button></div>
+    <label>Nama judul<input id="adminTitle" maxlength="250" required></label>
+    <label>Kategori<select id="adminCategory"><option value="dasar">Panduan Dasar</option><option value="layanan">Penjualan & Servis</option><option value="operasional">Operasional Toko</option><option value="evaluasi">Evaluasi & Alur</option><option value="lampiran">Formulir Lampiran</option><option value="dokumen">Informasi Dokumen</option><option value="tambahan">SOP Tambahan</option></select></label>
+    <div class="admin-block-title"><h3>Isi SOP</h3><button type="button" id="adminAddBlock" class="admin-subtle">+ Tambah paragraf</button></div>
+    <div id="adminBlocks"></div>
+    <div class="admin-actions"><button type="button" id="adminDeleteSection" class="admin-danger">Hapus judul</button><button type="button" id="adminPublish" class="admin-primary">Terbitkan perubahan online</button></div>
+    <p class="admin-help">Penyimpanan dilakukan ke database online. Perubahan dapat dibaca pengunjung setelah dimuat ulang. Hak edit diverifikasi pada database.</p>
+  </div>
+</section>
+
 </body>
 </html>

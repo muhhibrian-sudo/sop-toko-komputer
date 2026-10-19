@@ -1,116 +1,96 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#10152d">
-<meta name="description" content="Portal SOP Digital Toko Komputer, Aksesori dan Servis. Jelajahi seluruh prosedur dengan mudah, cari, cetak, dan siapkan revisi.">
-<title>Portal SOP Digital | Toko Komputer, Aksesori & Servis</title>
-<link rel="stylesheet" href="assets/style.css?v=3">
-<link rel="stylesheet" href="assets/reader.css?v=3">
-<script src="data/sop.js" defer></script>
-<script src="assets/app.js?v=3" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f6f1">
+  <meta name="description" content="SOPBOOK — perpustakaan SOP Toko Komputer, Aksesori dan Servis. Baca satu judul dalam satu waktu, geser untuk berpindah.">
+  <title>SOPBOOK — Perpustakaan SOP Toko Komputer</title>
+  <link rel="stylesheet" href="assets/baca-v4.css?v=20261019b">
+  <script src="data/sop.js" defer></script>
+  <script src="assets/baca-v4.js?v=20261019b" defer></script>
 </head>
 <body>
-<div class="app-shell">
-  <header class="topbar">
-    <button class="icon-button menu-button" id="menuButton" aria-label="Buka menu navigasi" title="Menu"><span class="menu-bars">☰</span></button>
-    <a class="brand" href="#beranda" aria-label="Ke beranda SOP">
-      <span class="brand-symbol"><svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><rect x="4" y="4" width="28" height="28" rx="9" fill="url(#gr)"/><path d="M11 14.2c2.9-2.6 6.3-2.6 8.8 0s5.5 2.6 6.2.4M11 22c2.9-2.6 6.3-2.6 8.8 0s5.5 2.6 6.2.4" stroke="white" stroke-width="2.8" stroke-linecap="round"/><defs><linearGradient id="gr" x1="0" y1="0" x2="32" y2="36"><stop stop-color="#7E67FF"/><stop offset="1" stop-color="#4B37D0"/></linearGradient></defs></svg></span>
-      <span class="brand-copy"><strong>SOP<span>space</span></strong><small>Knowledge Center</small></span>
-    </a>
-    <div class="topbar-separator"></div>
-    <div class="topbar-title">Portal Operasional Toko <span class="dot-sep">/</span> <b>Dokumentasi SOP</b></div>
-    <div class="topbar-spacer"></div>
-    <label class="search-wrap" for="searchInput">
-      <span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.3"/><path d="m15.5 15.5 5 5" stroke-linecap="round"/></svg></span>
-      <input id="searchInput" type="search" placeholder="Cari di semua SOP..." autocomplete="off" aria-label="Cari isi dokumen SOP">
-      <kbd>Ctrl K</kbd>
-    </label>
-    <button class="top-action print-action" id="printButton" title="Cetak SOP">⎙ <span>Cetak</span></button>
-    <button class="edit-main" id="editToggle" title="Edit draf SOP lokal"><span aria-hidden="true">✎</span><span>Mode Edit</span></button>
-  </header>
-  <div class="app-body">
-    <div class="sidebar-backdrop" id="sideBackdrop" hidden></div>
-    <aside class="sidebar" id="sidebar" aria-label="Navigasi SOP">
-      <div class="sidebar-content">
-        <div class="sidebar-caption">WORKSPACE</div>
-        <button id="homeLink" class="overview-link active"><span class="ov-icon">◫</span><span>Beranda</span><span class="ov-dot">●</span></button>
-        <div id="navigation" class="section-nav"></div>
+<div class="reading-progress" aria-hidden="true"><div id="globalProgress"></div></div>
+<header class="masthead">
+  <a class="wordmark" href="#beranda" id="brand" aria-label="Kembali ke beranda">
+    <span class="wordmark-icon" aria-hidden="true"><span>✦</span></span>
+    <span>SOP<span class="wordmark-accent">BOOK</span><small>PUSTAKA OPERASIONAL</small></span>
+  </a>
+  <div class="masthead-center">Toko Komputer <span class="mast-dot">•</span> Aksesori <span class="mast-dot">•</span> Servis</div>
+  <div class="mast-actions">
+    <button type="button" class="icon-pill" id="searchToggle" aria-label="Cari SOP" title="Cari SOP">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.5 15.5 5 5"/></svg>
+    </button>
+    <button type="button" class="edit-pill" id="editToggle"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15.5 5.5 3 3M4 20l4.5-.9L19 8.5a2.2 2.2 0 0 0-3.1-3.1L5.3 16.1 4 20Z"/></svg><span id="editText">Mode Edit</span></button>
+  </div>
+</header>
+
+<div id="homeView" class="home-view">
+  <section class="welcome wrap" aria-labelledby="welcomeHeading">
+    <div class="welcome-content">
+      <div class="eyebrow"><span class="eyebrow-line"></span> PERPUSTAKAAN SOP DIGITAL <span class="eyebrow-line"></span></div>
+      <h1 id="welcomeHeading">Setiap prosedur,<br><em>punya ceritanya.</em></h1>
+      <p>Satu tempat untuk memahami cara kerja toko — pilih judul, baca ke bawah sampai selesai, lalu geser untuk lanjut ke SOP berikutnya.</p>
+      <div class="welcome-actions">
+        <button type="button" class="btn btn-primary" id="startReading">Mulai membaca <span aria-hidden="true">↗</span></button>
+        <button type="button" class="btn btn-ghost" id="continueReading">Lanjutkan terakhir <span aria-hidden="true">→</span></button>
       </div>
-      <div class="sidebar-footer">
-        <div class="footer-square">✦</div>
-        <div><strong>Pusat Pengetahuan</strong><p>Standar kerja dalam satu ruang digital.</p></div>
-        <span class="version-tag">v1.0</span>
-      </div>
+      <div class="welcome-stats"><span><strong>18</strong> Prosedur SOP</span><i></i><span><strong>05</strong> Lampiran</span><i></i><span><strong>01</strong> Pustaka</span></div>
+    </div>
+    <div class="cover-stage" aria-hidden="true">
+      <div class="glow-halo"></div>
+      <div class="showcase-book book-back"><span>CATATAN<br>OPERASIONAL</span></div>
+      <div class="showcase-book book-front"><div class="cover-mini">SOP BOOK <span>01 / 18</span></div><div class="cover-ornament">✺</div><strong>Panduan<br>Kerja<br><em>Toko</em></strong><div class="cover-line"></div><span class="cover-footer">KOMPUTER • AKSESORI • SERVIS</span></div>
+      <div class="floating-sticker">PILIH JUDUL <span>↘</span></div>
+    </div>
+  </section>
+  <section class="library wrap" id="librarySection" aria-label="Daftar SOP">
+    <div class="section-kicker">— RAK BACA PILIHAN ANDA</div>
+    <div class="library-heading"><div><h2>Temukan <em>bacaanmu.</em></h2><p>Satu kartu membuka satu SOP. Gunakan tab untuk memilih kategori.</p></div><button class="small-link" id="seeAll" type="button">Lihat semua judul <span aria-hidden="true">↗</span></button></div>
+    <div id="categoryPills" class="category-pills" role="tablist" aria-label="Pilih kategori"></div>
+    <div id="libraryCount" class="library-count" aria-live="polite"></div>
+    <div class="books-grid" id="booksGrid"></div>
+    <div id="noResults" class="empty-state" hidden><strong>Tidak ada SOP yang cocok.</strong><p>Coba kategori atau kata kunci lain.</p></div>
+  </section>
+  <footer class="home-footer wrap"><span>SOPBOOK</span><p>Dokumen operasional internal • Isi berdasarkan file SOP yang diberikan.</p><a href="#beranda">Kembali ke atas ↑</a></footer>
+</div>
+
+<div id="readerView" class="reader-view" hidden>
+  <div class="reader-layout wrap">
+    <aside class="chapter-rail" aria-label="Daftar judul">
+      <div class="rail-label">PERPUSTAKAAN</div>
+      <button type="button" class="rail-home" id="railHome">← Kembali ke rak</button>
+      <div class="rail-heading">Daftar bacaan <span id="railTotal"></span></div>
+      <nav id="chapterRail" class="rail-list" aria-label="Navigasi seluruh judul"></nav>
+      <div class="rail-tip">↔ Geser ke samping untuk pindah judul<br>↕ Gulir untuk terus membaca judul ini</div>
     </aside>
-    <main class="workspace" id="workspace">
-      <section id="dashboard" class="dashboard">
-        <div class="overline"><span class="little-orb"></span> OVERVIEW <span class="overline-line"></span> PORTAL SOP</div>
-        <div class="hero">
-          <div class="hero-gridlines" aria-hidden="true"></div>
-          <div class="hero-copy">
-            <div class="hero-badge"><span class="badge-sparkle">✳</span> PUSAT DOKUMENTASI DIGITAL <span class="badge-version">EDISI 1.0</span></div>
-            <h1>Kerja lebih rapi.<br><em>Semua SOP dalam</em><br><span>satu tempat.</span></h1>
-            <p>Temukan panduan penjualan, penerimaan servis, pengerjaan teknis, keuangan, hingga quality control — tersusun jelas dan mudah dijelajahi.</p>
-            <div class="hero-cta"><button class="button button-lime" id="startButton">Mulai jelajahi SOP <span>↗</span></button><button class="button button-glass" id="allButton">Pilih judul <span>→</span></button></div>
-          </div>
-          <div class="hero-art" aria-hidden="true">
-            <div class="art-glow"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-            <div class="art-card art-card-main"><span class="art-card-label"><span class="status-ping"></span> SISTEM TERSTRUKTUR</span><div class="art-card-logo">S<span>●</span>P</div><div class="art-lines"><span></span><span></span><span></span></div><div class="art-progress"><span></span></div><small>Knowledge management</small></div>
-            <div class="art-card art-card-mini"><span class="art-mini-icon">✓</span><span><strong>Quality Control</strong><small>Proses terdokumentasi</small></span></div>
-            <div class="art-card art-card-float"><span class="art-float-icon">▣</span><div><b>18</b><small>Prosedur</small></div></div>
-          </div>
-        </div>
-        <div class="stats-grid">
-          <div class="stat"><span class="stat-icon stat-purple">▣</span><div class="stat-text"><b id="totalSop">18</b><strong>Prosedur operasional</strong><small>Panduan kerja lengkap</small></div><span class="stat-arrow">↗</span></div>
-          <div class="stat"><span class="stat-icon stat-orange">▤</span><div class="stat-text"><b id="totalForms">5</b><strong>Formulir & lampiran</strong><small>Format kerja siap dibaca</small></div><span class="stat-arrow">↗</span></div>
-          <div class="stat"><span class="stat-icon stat-green">♧</span><div class="stat-text"><b>4</b><strong>Peran dalam tim</strong><small>Pemilik, admin & teknisi</small></div><span class="stat-arrow">↗</span></div>
-        </div>
-        <section class="explore-section" aria-labelledby="exploreTitle">
-          <div class="section-header"><div><div class="small-label">EXPLORE LIBRARY</div><h2 id="exploreTitle">Jelajahi berdasarkan aktivitas<span class="title-star"> ✳</span></h2><p>Mulai dari topik yang paling Anda butuhkan.</p></div><button class="text-link" id="browseAll">Daftar judul <span>↗</span></button></div>
-          <div class="category-grid" id="categoryGrid"></div>
-        </section>
-        <section class="quick-section">
-          <div class="section-header"><div><div class="small-label">QUICK ACCESS</div><h2>Sering digunakan</h2><p>Akses cepat ke prosedur penting sehari-hari.</p></div></div>
-          <div class="quick-grid" id="quickGrid"></div>
-        </section>
-        <section class="flow-panel" aria-labelledby="flowTitle"><div class="flow-intro"><div class="small-label light-label">ALUR LAYANAN</div><h2 id="flowTitle">Dari penerimaan<br>hingga selesai.</h2><p>Setiap langkah servis mengikuti prosedur dan persetujuan pelanggan.</p><button id="viewServiceFlow" class="button flow-button">Baca SOP servis <span>↗</span></button></div><div class="flow-steps"><div><span>01</span><strong>Terima</strong><small>Catat unit</small></div><i>→</i><div><span>02</span><strong>Diagnosa</strong><small>Periksa kendala</small></div><i>→</i><div><span>03</span><strong>Setujui</strong><small>Konfirmasi biaya</small></div><i>→</i><div><span>04</span><strong>QC</strong><small>Pastikan layak</small></div></div></section>
-      </section>
-      <section id="reader" class="reader" hidden>
-        <div class="reader-top"><button class="back-button" id="backHome">← Kembali ke beranda</button><div class="reader-actions"><button class="quiet-button" id="showAllFromReader">▦ Daftar judul</button><button class="quiet-button" id="printReader">⎙ Cetak</button></div></div>
-        <div id="readerNavigator" class="reader-navigator" aria-label="Navigasi kategori dan judul">
-          <div class="reader-navigator-top"><span class="reader-navigator-name"><span class="navigator-spark">✧</span> RAK BACA</span><span class="swipe-help">↔ Geser ke samping untuk ganti judul</span></div>
-          <div id="categoryTabs" class="category-tabs" role="tablist" aria-label="Pilih kategori SOP"></div>
-          <div class="chapter-caption"><span>PILIH JUDUL</span><button id="openChapterList" type="button">Semua judul <span aria-hidden="true">↗</span></button></div>
-          <div id="chapterTabs" class="chapter-tabs" role="tablist" aria-label="Pilih judul SOP"></div>
-          <div class="chapter-progress"><span id="chapterProgress" style="width:0%"></span></div>
-        </div>
-        <div id="readerIntro" class="reader-intro"><div class="reader-label" id="breadcrumb">PROSEDUR OPERASIONAL</div><div class="reader-heading-row"><div><h1 id="currentTitle">Bagian SOP</h1><p id="currentSummary"></p></div><div class="reader-number" id="readerNumber">01<span>/ 18</span></div></div><div class="reader-pills"><span>◎ Panduan Resmi</span><span>◷ Versi 1.0</span><span id="readTime">◴ Bacaan singkat</span></div></div>
-        <section class="edit-banner" id="editBanner" hidden><span class="edit-banner-icon">✎</span><div><strong>Mode edit lokal aktif</strong><p>Perubahan tersimpan di browser ini. Untuk memperbarui versi online, unduh hasil edit lalu unggah <code>data/sop.js</code> ke GitHub.</p></div><button class="button button-light" id="howPublish">Cara terbitkan</button></section>
-        <div class="editor-toolbar" id="editorToolbar" hidden>
-          <button class="small-button" id="renameSection">✎ Ubah judul</button><button class="small-button" id="addHeading">+ Subjudul</button><button class="small-button" id="addParagraph">+ Paragraf</button><button class="small-button" id="addList">+ Poin</button><button class="small-button" id="addTable">+ Tabel</button><button class="small-button" id="addSection">+ SOP baru</button><button class="small-button danger" id="removeSection">Hapus bagian</button>
-        </div>
-        <div class="reading-layout"><article id="documentArea" class="reading-content" aria-live="polite"></article><aside id="sectionAside" class="section-aside"></aside></div>
-        <nav class="reader-pagination" id="readerPagination"></nav>
-      </section>
-      <div class="reading-dock" id="readingDock" hidden aria-label="Navigasi antar judul saat membaca">
-        <button type="button" id="dockPrev" class="dock-arrow" aria-label="Judul sebelumnya">←</button>
-        <div class="dock-center"><span id="dockChapter">BAB 01 / 26</span><strong id="dockChapterTitle">Judul SOP</strong><div class="dock-meter"><span id="dockProgress"></span></div></div>
-        <button type="button" id="dockNext" class="dock-arrow" aria-label="Judul berikutnya">→</button>
-      </div>
-            <section id="searchResults" class="search-results" hidden><div class="overline">HASIL PENCARIAN</div><div class="section-header"><div><h1>Hasil pencarian SOP</h1><p id="searchSubtitle">Menampilkan bagian yang cocok.</p></div><button id="clearSearch" class="quiet-button">✕ Hapus pencarian</button></div><div id="searchGrid" class="search-grid"></div></section>
-      <footer class="page-footer"><span><span class="footer-dot"></span> SOP Toko Komputer, Aksesori & Servis</span><span>Dokumentasi internal · Versi 1.0</span><button id="backTop">↑ Ke atas</button></footer>
+    <main class="reader-main" id="readerMain" tabindex="-1">
+      <div class="reader-breadcrumb"><button type="button" id="backToLibrary">← Semua judul</button><span>/</span><span id="currentCategoryName">SOP</span><span>/</span><strong id="breadcrumbIndex">01</strong></div>
+      <div class="reader-topline"><span class="reader-series">SOPBOOK • SERI OPERASIONAL</span><div class="reader-controls"><button type="button" class="light-action" id="saveBookmark" title="Tandai bacaan">♡ <span>Simpan</span></button><button type="button" class="light-action" id="openChapters" title="Buka daftar bab">☷ <span>Daftar</span></button></div></div>
+      <div id="readerCategories" class="reader-categories" role="tablist" aria-label="Pindah kategori SOP"></div>
+      <div id="chapterTabs" class="chapter-tabs" role="tablist" aria-label="Pindah judul SOP"></div>
+      <article class="story-paper" id="storyPaper" aria-live="polite">
+        <div class="paper-head"><div class="paper-overline"><span id="chapterLabel">BAB 01</span><span id="chapterLength">BACAAN SOP</span></div><h1 id="paperTitle"></h1><p class="paper-subtitle">Dokumen SOP Toko Komputer, Aksesori dan Servis</p><div class="chapter-divider"><span>✦</span></div></div>
+        <div class="article-content" id="articleContent"></div>
+        <div class="end-chapter"><span>✦</span><strong>Akhir bab</strong><p>Anda telah mencapai akhir judul ini. Geser ke kiri atau pilih berikutnya untuk lanjut.</p></div>
+      </article>
+      <div class="chapter-navigation"><button id="chapterPrevious" class="nav-chapter" type="button"><span>← SEBELUMNYA</span><strong id="previousTitle">—</strong></button><div class="chapter-pos" id="chapterPosition">01 / 26</div><button id="chapterNext" class="nav-chapter next" type="button"><span>BERIKUTNYA →</span><strong id="nextTitle">—</strong></button></div>
+      <div class="reader-hint"><span>↕ Scroll vertikal = tetap di judul ini</span><span>↔ Geser horizontal = pindah judul</span></div>
     </main>
   </div>
+  <nav class="mobile-reader-nav" aria-label="Navigasi bawah">
+    <button id="mobileHome" aria-label="Kembali ke rak"><span>⌂</span><small>Rak</small></button>
+    <button id="mobilePrevious" aria-label="Judul sebelumnya"><span>‹</span><small>Sebelumnya</small></button>
+    <button id="mobileChapters" aria-label="Daftar judul"><span>☷</span><small>Daftar</small></button>
+    <button id="mobileNext" aria-label="Judul berikutnya"><span>›</span><small>Berikutnya</small></button>
+  </nav>
 </div>
-<div class="editor-dock" id="editorDock" hidden><div><strong>✎ Editor SOP</strong><small id="draftStatus">Draf lokal • Belum diterbitkan</small></div><div class="dock-actions"><button class="button dock-secondary" id="importButton">↑ Impor</button><button class="button dock-secondary" id="resetButton">↺ Reset</button><button class="button button-lime" id="exportButton">↓ Unduh revisi</button></div></div>
-<input type="file" accept=".js,.json,application/json,text/javascript" id="importFile" hidden>
-<dialog id="publishDialog" class="dialog"><div class="dialog-head"><strong>Cara menerbitkan perubahan</strong><button class="dialog-close" data-close-dialog aria-label="Tutup">✕</button></div><p>GitHub Pages adalah hosting statis. Mengedit di browser tidak langsung mengubah website publik.</p><ol><li>Edit teks atau tabel dan simpan tiap perubahan.</li><li>Klik <b>Unduh revisi</b> untuk mengunduh <code>sop.js</code>.</li><li>Buka repository GitHub, ganti file <code>data/sop.js</code> dengan hasil unduhan.</li><li>Klik <b>Commit changes</b>. Setelah proses GitHub Pages berhasil, situs publik menampilkan revisi terbaru.</li></ol><p class="dialog-info">Semua pengunjung dapat menggunakan editor lokal, tetapi hanya orang dengan izin repository dapat menerbitkan perubahan. Jangan memasukkan data rahasia ke situs publik.</p><button class="button button-purple" data-close-dialog>Mengerti</button></dialog>
-<div role="status" class="toast" id="toast" hidden></div>
-<dialog id="chapterDialog" class="chapter-dialog" aria-labelledby="pickerTitle">
-  <div class="chapter-dialog-head"><div><span class="picker-label">PERPUSTAKAAN SOP</span><h2 id="pickerTitle">Pilih judul untuk dibaca</h2><p>Setiap judul dibaca sendiri. Scroll ke bawah tidak berpindah judul.</p></div><button id="closeChapterDialog" class="picker-close" aria-label="Tutup daftar judul">✕</button></div>
-  <div id="chapterPickerGrid" class="chapter-picker-grid"></div>
-</dialog>
+
+<div id="overlay" class="overlay" hidden></div>
+<aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Daftar SOP" hidden><div class="drawer-top"><div><small>DAFTAR BACAAN</small><h2>Pilih judul SOP</h2></div><button id="drawerClose" class="close-button" aria-label="Tutup daftar">×</button></div><div class="drawer-body" id="drawerList"></div></aside>
+<aside id="searchPanel" class="search-panel" role="dialog" aria-modal="true" aria-label="Cari SOP" hidden><div class="search-panel-top"><h2>Cari di pustaka</h2><button id="closeSearch" class="close-button" aria-label="Tutup pencarian">×</button></div><label for="globalSearch" class="search-input"><span>⌕</span><input type="search" id="globalSearch" placeholder="Judul, kata kunci, isi SOP…" autocomplete="off"></label><div id="searchResults" class="search-results"></div></aside>
+<div id="editPanel" class="edit-panel" role="dialog" aria-modal="true" aria-label="Pengaturan edit SOP" hidden><div class="edit-panel-heading"><div><small>EDITOR LOKAL</small><h2>Kelola isi SOP</h2></div><button id="closeEdit" class="close-button" aria-label="Tutup edit">×</button></div><p>Anda bisa mengubah teks/tabel pada judul yang dibuka. Perubahan tersimpan <strong>hanya di browser ini</strong> dan tidak langsung mengubah website publik.</p><div class="editor-actions"><button class="btn btn-primary" id="enableEdit">Aktifkan edit judul</button><button class="btn btn-outline" id="newChapter">+ SOP baru</button><button class="btn btn-outline" id="exportCode">Unduh data/sop.js untuk GitHub</button><button class="btn btn-danger" id="resetDraft">Kembalikan isi awal</button></div><small class="edit-note">Untuk menerbitkan perubahan: unggah ulang file hasil ekspor ke repository GitHub, lalu Commit changes. Tidak ada akun admin pada GitHub Pages versi ini.</small></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>
